@@ -1,0 +1,9 @@
+{% if todos_list %}
+    <ol>
+        {% for todo in todos_list %}
+            <li> {{ todo.name }}</li>
+        {% endfor %}
+    </ol>
+{% else %}
+    <p>No todos as of now</p>
+{% endif %}
