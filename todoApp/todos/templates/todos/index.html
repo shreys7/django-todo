@@ -1,7 +1,7 @@
-{% if todos_list %}
+{% if todo_list %}
     <ol>
-        {% for todo in todos_list %}
-            <li> {{ todo.name }}</li>
+        {% for todo in todo_list %}
+            <li> {{ todo.name }} </li>
         {% endfor %}
     </ol>
 {% else %}
