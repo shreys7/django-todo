@@ -2,8 +2,9 @@ from django.db import models
 
 class Todo(models.Model):
     name=models.CharField(max_length=100)
-    created_date=models.DateField('Created')
-    deadline=models.DateField('Deadline')
+    created_at=models.DateTimeField('Created', auto_now_add=True)
+    update_at=models.DateTimeField('Updated', auto_now=True)
+    deadline=models.DateTimeField('Deadline', null=True, blank=True)
     description=models.CharField(max_length=200)
 
     def __str__(self):

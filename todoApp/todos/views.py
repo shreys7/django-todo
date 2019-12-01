@@ -8,5 +8,5 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         """Return all the latest todos."""
-        return Todo.objects.order_by('-created_date')
+        return Todo.objects.order_by('-created_at')
 
