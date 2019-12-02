@@ -5,23 +5,26 @@
 {% endblock %}
 
 {% block content %}
-
-{% if todo_list %}
-<div class="row">
-    {% for todo in todo_list %}
-    <div class="col-sm-6">
-        <div class="card text-center">
-            <div class="card-body">
-                <h5 class="card-title">{{ todo.title }}</h5>
-                <p class="card-text">{{ todo.description }}</p>
-                <a href="{% url 'todos:edit' todo.id %}" class="btn btn-primary">Edit</a>
-                <a href="{% url 'todos:delete' todo.id %}" class="btn btn-primary">Delete</a>
-            </div>
+<div class="container">
+    <div class="page-header">
+      <h1>Todo List</h1>
+    </div>
+    <form class="form-horizontal">
+      <div class="form-group">
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="newTodo" placeholder="Do laundry">
         </div>
+        <button type="button" id="addItem" class="btn btn-success">Add To Do</button>
+      </div>
+    </form>
+    {% for todo in todo_list %}
+    <div class="card text-center w-75">
+      <div class="card-body">
+        <h5 class="card-title">{{ todo.title }}</h5>
+        <a href="{% url 'todos:delete' todo.id %}" class="btn btn-primary">Delete</a>
+      </div>
     </div>
     {% endfor %}
 </div>
-{% else %}
-<p>No todos as of now</p>
-{% endif %}
+
 {% endblock %}
