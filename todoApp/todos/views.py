@@ -22,6 +22,11 @@ def save(request, todo_id):
     todo.description = description
 
     todo.save()
+    return redirect('todos:index')
+
+def delete(request, todo_id):
+    todo = get_object_or_404(Todo, pk=todo_id)
+    todo.delete()
 
     return redirect('todos:index')
 

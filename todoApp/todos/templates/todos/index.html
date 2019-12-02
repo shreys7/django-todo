@@ -6,23 +6,22 @@
 
 {% block content %}
 
-    {% if todo_list %}
-    <div style="display: grid;">
-        <div class="row">
-            {% for todo in todo_list %}
-                <div class="col-sm-6">
-                    <div class="card text-center">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ todo.title }}</h5>
-                            <p class="card-text">{{ todo.description }}</p>
-                            <a href="{% url 'todos:edit' todo.id %}" class="btn btn-primary">Edit</a>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
+{% if todo_list %}
+<div class="row">
+    {% for todo in todo_list %}
+    <div class="col-sm-6">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">{{ todo.title }}</h5>
+                <p class="card-text">{{ todo.description }}</p>
+                <a href="{% url 'todos:edit' todo.id %}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'todos:delete' todo.id %}" class="btn btn-primary">Delete</a>
+            </div>
         </div>
     </div>
-    {% else %}
-        <p>No todos as of now</p>
-    {% endif %}
+    {% endfor %}
+</div>
+{% else %}
+<p>No todos as of now</p>
+{% endif %}
 {% endblock %}
