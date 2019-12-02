@@ -6,61 +6,49 @@
 
 {% block content %}
 <div class="container">
-  <div class="page-header">
-    <h1>
-      Todo List
-    </h1>
+  <!-- title row -->
+  <div class="row">
+    <div class="page-header offset-md-5">
+      <h1>
+        Todo List
+      </h1>
+    </div>
   </div>
-  <form 
-    method="post" 
-    action="{% url 'todos:add' %}"
-  >
-    {% csrf_token %}
-    <div class="form-row">
-      <div class="col-md-6">
-        <input 
-          type="text" 
-          class="form-control" 
-          name="title"
-          placeholder="Do laundry"
-        >
+  <!-- Add a todo row -->
+  <div class="row">
+    <form method="post" action="{% url 'todos:add' %}" class="offset-sm-3 col-lg-12">
+      {% csrf_token %}
+      <div class="form-row">
+        <div class="col-md-6">
+          <input type="text" class="form-control" name="title" placeholder="Do laundry" required>
+        </div>
+        <div class="col-md-6">
+          <button type="submit" name="submit" class="btn btn-outline-primary">
+            Add
+          </button>
+        </div>
       </div>
-      <div class="col-md-6">
-        <button 
-          type="submit" 
-          name="submit" 
-          class="btn btn-success"
-        >
-        Add To Do
-        </button>
-      </div>
-    </div>
-  </form>
+    </form>
+  </div>
   <hr />
-  <div class="list-group">
-    {% for todo in todo_list %}
-    <div 
-      class="list-group-item col-md-6 {% if todo.isCompleted %} todo-complete {% endif %}">
-      <form 
-        style="display: inline;" 
-        method="post" 
-        action="{% url 'todos:update' todo.id %}"
-      >
-        {% csrf_token %}
-        <input type="checkbox" 
-          name="isCompleted" 
-          onchange="this.form.submit()" 
-          {% if todo.isCompleted %} checked {% endif %}
-          class="todo-status-checkbox"
-          title="{% if not todo.isCompleted %} mark as done {% else %} mark undone {% endif %}"
-        >
-      </form>
-      {{ todo.title }}
-      <a href="{% url 'todos:delete' todo.id %}" title="Delete">
-        <i class="far fa-trash-alt"></i>
-      </a>
+  <!-- todo list row -->
+  <div class="row">
+    <div class="list-group offset-md-2 col-lg-9">
+      {% for todo in todo_list %}
+      <div class="list-group-item {% if todo.isCompleted %} todo-complete {% endif %}">
+        <form style="display: inline;" method="post" action="{% url 'todos:update' todo.id %}">
+          {% csrf_token %}
+          <input type="checkbox" name="isCompleted" onchange="this.form.submit()" {% if todo.isCompleted %} checked
+            {% endif %} class="todo-status-checkbox"
+            title="{% if not todo.isCompleted %} mark as done {% else %} mark undone {% endif %}">
+        </form>
+        {{ todo.title }}
+        <a href="{% url 'todos:delete' todo.id %}" title="Delete">
+          <i class="far fa-trash-alt"></i>
+        </a>
+      </div>
+      {% endfor %}
     </div>
-    {% endfor %}
   </div>
 </div>
 
