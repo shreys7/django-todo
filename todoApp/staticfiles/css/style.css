@@ -7,3 +7,13 @@
   float: right;
   cursor: pointer;
 }
+
+.todo-complete {
+  opacity: 50%;
+  text-decoration: line-through;
+}
+
+.todo-status-checkbox {
+  cursor: pointer;
+  margin-right: 10px;
+}
