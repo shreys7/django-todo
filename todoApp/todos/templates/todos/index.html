@@ -1,0 +1,44 @@
+{% extends 'todos/base.html' %}
+
+{% block title %}
+<title>Todo list</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="page-header text-center">
+    <h1>Todo List</h1>
+  </div>
+  <form method="post" action="{% url 'todos:add' %}">
+    {% csrf_token %}
+    <div class="form-row">
+      <div class="col-md-6">
+        <input type="text" class="form-control" name="title" value="" placeholder="Do laundry">
+      </div>
+      <div class="col-md-6">
+        <button type="submit" name="submit" class="btn btn-success">Add To Do</button>
+      </div>
+    </div>
+  </form>
+  <div class="list-group">
+    {% for todo in todo_list %}
+      {% if todo.isCompleted %}
+        <div class="list-group-item col-md-6">
+          {{ todo.title }}
+            <a href="{% url 'todos:delete' todo.id %}">
+              <i class="far fa-trash-alt"></i>
+            </a>
+          </div>
+      {% else %}
+        <div class="list-group-item col-md-6">
+          {{ todo.title }}
+          <a href="{% url 'todos:delete' todo.id %}">
+            <i class="far fa-trash-alt" type="submit" name="submit"></i>
+          </a>
+         </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
