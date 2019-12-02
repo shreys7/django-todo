@@ -11,6 +11,12 @@ class IndexView(generic.ListView):
         """Return all the latest todos."""
         return Todo.objects.order_by('-created_at')
 
+def add(request):
+    title = request.POST['title']
+    Todo.objects.create(title=title)
+
+    return redirect('todos:index')
+
 def delete(request, todo_id):
     todo = get_object_or_404(Todo, pk=todo_id)
     todo.delete()

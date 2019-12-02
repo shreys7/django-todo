@@ -6,25 +6,39 @@
 
 {% block content %}
 <div class="container">
-    <div class="page-header">
-      <h1>Todo List</h1>
-    </div>
-    <form class="form-horizontal">
-      <div class="form-group">
-        <div class="col-sm-10">
-          <input type="text" class="form-control" id="newTodo" placeholder="Do laundry">
-        </div>
-        <button type="button" id="addItem" class="btn btn-success">Add To Do</button>
+  <div class="page-header text-center">
+    <h1>Todo List</h1>
+  </div>
+  <form method="post" action="{% url 'todos:add' %}">
+    {% csrf_token %}
+    <div class="form-row">
+      <div class="col-md-6">
+        <input type="text" class="form-control" name="title" value="" placeholder="Do laundry">
       </div>
-    </form>
+      <div class="col-md-6">
+        <button type="submit" name="submit" class="btn btn-success">Add To Do</button>
+      </div>
+    </div>
+  </form>
+  <div class="list-group">
     {% for todo in todo_list %}
-    <div class="card text-center w-75">
-      <div class="card-body">
-        <h5 class="card-title">{{ todo.title }}</h5>
-        <a href="{% url 'todos:delete' todo.id %}" class="btn btn-primary">Delete</a>
-      </div>
-    </div>
+      {% if todo.isCompleted %}
+        <div class="list-group-item col-md-6">
+          {{ todo.title }}
+            <a href="{% url 'todos:delete' todo.id %}">
+              <i class="far fa-trash-alt"></i>
+            </a>
+          </div>
+      {% else %}
+        <div class="list-group-item col-md-6">
+          {{ todo.title }}
+          <a href="{% url 'todos:delete' todo.id %}">
+            <i class="far fa-trash-alt" type="submit" name="submit"></i>
+          </a>
+         </div>
+      {% endif %}
     {% endfor %}
+  </div>
 </div>
 
 {% endblock %}
