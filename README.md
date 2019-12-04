@@ -8,7 +8,7 @@ $ git clone https://github.com/shreys7/django-todo.git
 ```
 You will need django to be installed in you computer to run this app. Head over to https://www.djangoproject.com/download/ for the download guide
 
-Once you have downloaded django, go to todoApp directory and run the following commands
+Once you have downloaded django, go to todoApp directory and run the following command
 
 ```bash
 $ python manage.py makemigrations
@@ -27,6 +27,6 @@ That was pretty simple, right? Now let's make the App live. We just need to star
 $ python manage.py runserver
 ```
 
-You can see the line on which the server is hosted. Once the server is hosted, head over to http://127.0.0.1:8000/todos for the App.
+Once the server is hosted, head over to http://127.0.0.1:8000/todos for the App.
 
 Cheers and Happy Coding :)
