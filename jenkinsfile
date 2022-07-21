@@ -1,12 +1,39 @@
-pipeline{
-    agent any 
-
-    stages{
-        stage("Build"){
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                sh 'echo "Checking Out Code from GitHub"'
+                checkout(
+                    [$class: 'GitSCM',
+                        branches:[
+                            [name: '*/develop']
+                        ],
+                        extensions: [],
+                        userRemoteConfigs: [
+                            [url: 'https://github.com/Expelliarmus625/django-todo.git']
+                        ]
+                    ]
+                )
+            }
+        }
+        stage('Build Docker Image'){
             steps{
-                sh 'echo "Building Docker Image"'
-
+                script{
+                    sh 'docker build -t expelliarmus625/django-todo .'
+                }
+            }
+        }
+        stage('Push Docker Image'){
+            steps{
+                script{
+                    withCredentials([string(credentialsId: 'dockerhub-pass', variable: 'dockerHubCred')]) {
+                        sh 'docker login -u expelliarmus625 -p ${dockerHubCred}'
+                    }
+                    sh 'docker push expelliarmus625/django-todo'
+                }
             }
         }
     }
 }
+
