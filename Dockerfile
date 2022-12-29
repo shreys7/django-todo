@@ -1,4 +1,3 @@
-FROM apt-add-repository
 FROM python3
 RUN pip install django==3.2
 COPY . .
