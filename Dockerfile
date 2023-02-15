@@ -1,4 +1,4 @@
-FROM pyhton
+FROM python
 RUN pip install django==3.2
 COPY .  . 
 RUN python manage.py makemigrations
