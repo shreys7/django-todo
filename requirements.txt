@@ -1,0 +1,9 @@
+asgiref==3.5.2
+backports.zoneinfo==0.2.1
+distlib==0.3.6
+Django==4.1.4
+filelock==3.12.0
+platformdirs==3.5.0
+sqlparse==0.4.3
+tzdata==2022.7
+virtualenv==20.23.0
