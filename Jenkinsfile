@@ -14,7 +14,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'docker build -t himanshurkt96/cicd-todo:${BUILD_NUMBER}'
+                sh 'docker build . -t himanshurkt96/cicd-todo:${BUILD_NUMBER}'
             }
         }
 
