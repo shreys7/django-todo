@@ -23,7 +23,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
                     sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
                     
-                    sh 'docker push himanshurkt96/node-cicd-todo:${BUILD_NUMBER}'
+                    sh 'docker push himanshurkt96/cicd-todo:${BUILD_NUMBER}'
                 }
             }
         }
