@@ -1,7 +1,9 @@
 FROM python:3
-RUN pip3 install -r requirements.txt
 
-COPY . . 
+COPY . .
+
+RUN pip install -r requirements.txt
+ 
 
 RUN python manage.py migrate
 
