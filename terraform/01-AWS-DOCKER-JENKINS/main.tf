@@ -1,45 +1,42 @@
-resource "aws_instance" "todoapp-dev-test" {
-  subnet_id = aws_subnet.todoapp-subnet.id
+resource "aws_instance" "todoapp-web" {
+  subnet_id = aws_subnet.todoapp-subnet-public.id
   depends_on = [ aws_default_security_group.todoapp-sg ]
   associate_public_ip_address = true
 
   ami           = "ami-053b0d53c279acc90" #Ubuntu 22.04
-  instance_type = "t2.micro"
-  key_name = var.ec2-key
+  instance_type = "t2.medium"
+  key_name = data.aws_key_pair.todoapp-key.key_name
   
   tags = {
     Name = "todoApp-dev-test"
   }
-  user_data = <<EOF
-  #!/bin/bash
-  mkdir test
-  EOF
+  user_data = "${file("docker-install.sh")}"
+}
+
+resource "aws_db_instance" "todoapp-db-postgres" {
+  
+  allocated_storage    = 20
+  db_name              = "postgres"
+  engine               = "postgres"
+  engine_version       = "16.1"
+  instance_class       = "db.t3.micro"
+  username             = var.db-username
+  password             = var.db-pass
+  skip_final_snapshot  = true
+
 }
 
 resource "aws_instance" "todoapp-jenkins" {
-  subnet_id = aws_subnet.todoapp-subnet.id
+  subnet_id = aws_subnet.todoapp-subnet-public.id
   depends_on = [ aws_default_security_group.todoapp-sg ]
   associate_public_ip_address = true
 
   ami = "ami-053b0d53c279acc90"
-  instance_type = "t2.micro"
-  key_name = var.ec2-key
-  user_data =<<EOF
-#!/bin/bash
-sudo apt update -y
-sudo apt install openjdk-17-jre -y
-java -version
-curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
-  /usr/share/keyrings/jenkins-keyring.asc > /dev/null
-echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
-  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
-  /etc/apt/sources.list.d/jenkins.list > /dev/null
-sudo apt-get update -y
-sudo apt-get install jenkins -y
-
-  EOF
-  tags = {
-    Name = "todoApp-dev-jenkins"
+  instance_type = "t2.medium"
+  key_name = data.aws_key_pair.todoapp-key.key_name
+  user_data = "${file("jenkins-install.sh")}"
+    tags = {
+    Name = "todoApp-jenkins"
   }
 
 }

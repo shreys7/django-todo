@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.16"
+      version = "5.39.0"
     }
   
   docker = {
@@ -15,8 +15,8 @@ terraform {
 
 
 provider "aws" {
-  shared_config_files = ["/Users/yashtank/.aws/config"]
-  shared_credentials_files = ["/Users/yashtank/.aws/credentials"]
+  shared_config_files = var.shared_config_files
+  shared_credentials_files = var.shared_credentials_files
   region = "us-east-1"
 }
 

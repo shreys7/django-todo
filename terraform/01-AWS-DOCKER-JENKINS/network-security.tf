@@ -39,3 +39,7 @@ resource "aws_default_security_group" "todoapp-sg" { #SECURITY-GROUP
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+data "aws_key_pair" "todoapp-key" {
+  key_name           = "todoapp-key"
+  include_public_key = true
+}
