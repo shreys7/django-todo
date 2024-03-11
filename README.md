@@ -24,7 +24,8 @@ aws configure
 $ aws --version
 aws-cli/2.15.27 Python/3.11.8 Linux/5.15.0-1055-aws exe/x86_64.ubuntu.20 prompt/off
 aws configure
-AWS Access Key ID [None]: <access key id>     
+AWS Access Key ID [None]: <access key id>
+AWS Secret Access Key [****************1OuQ]: <secret access key>
 Default region name [None]: <default region>
 Default output format [None]: 
 ```
