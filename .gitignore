@@ -96,4 +96,4 @@ override.tf.json
 .terraformrc
 terraform.rc
 
-variable.tf
+.terraform.lock.hcl
