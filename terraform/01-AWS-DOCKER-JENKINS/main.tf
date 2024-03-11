@@ -8,23 +8,11 @@ resource "aws_instance" "todoapp-web" {
   key_name = data.aws_key_pair.todoapp-key.key_name
   
   tags = {
-    Name = "todoApp-dev-test"
+    Name = "todoApp-dev"
   }
   user_data = "${file("docker-install.sh")}"
 }
 
-resource "aws_db_instance" "todoapp-db-postgres" {
-  
-  allocated_storage    = 20
-  db_name              = "postgres"
-  engine               = "postgres"
-  engine_version       = "16.1"
-  instance_class       = "db.t3.micro"
-  username             = var.db-username
-  password             = var.db-pass
-  skip_final_snapshot  = true
-
-}
 
 resource "aws_instance" "todoapp-jenkins" {
   subnet_id = aws_subnet.todoapp-subnet-public.id
